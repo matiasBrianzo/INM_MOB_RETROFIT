@@ -1,4 +1,4 @@
-package com.example.mov_tp03.ui.listar;
+package com.example.mov_tp03.ui.inmuebles;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

@@ -1,4 +1,4 @@
-package com.example.mov_tp03.ui.cargar;
+package com.example.mov_tp03.ui.inicio;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;

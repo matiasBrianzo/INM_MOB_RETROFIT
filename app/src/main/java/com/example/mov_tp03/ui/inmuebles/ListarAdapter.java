@@ -1,4 +1,4 @@
-package com.example.mov_tp03.ui.listar;
+package com.example.mov_tp03.ui.inmuebles;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mov_tp03.Modelo.Producto;
 import com.example.mov_tp03.R;
 
-import java.text.Format;
-import java.util.Comparator;
 import java.util.List;
 
 public class ListarAdapter extends RecyclerView.Adapter<ListarAdapter.ViewHolderList> {

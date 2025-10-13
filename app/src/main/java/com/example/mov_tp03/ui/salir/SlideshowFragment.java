@@ -1,11 +1,10 @@
-package com.example.mov_tp03.ui.slideshow;
+package com.example.mov_tp03.ui.salir;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;

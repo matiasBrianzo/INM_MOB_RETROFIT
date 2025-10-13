@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.mov_tp03.ui.cargar.CargarFragment"
+        android:name="com.example.mov_tp03.ui.inicio.CargarFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_cargar" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.mov_tp03.ui.listar.ListarFragment"
+        android:name="com.example.mov_tp03.ui.inmuebles.ListarFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_listar" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.example.mov_tp03.ui.slideshow.SlideshowFragment"
+        android:name="com.example.mov_tp03.ui.salir.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
     <activity

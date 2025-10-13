@@ -1,4 +1,4 @@
-package com.example.mov_tp03.ui.slideshow;
+package com.example.mov_tp03.ui.salir;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
