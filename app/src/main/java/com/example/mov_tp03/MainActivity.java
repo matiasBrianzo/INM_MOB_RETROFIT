@@ -10,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -20,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mov_tp03.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,9 +56,25 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.nav_home) {
+                    navController.navigate(R.id.nav_home);
+                    drawer.closeDrawers();
+                    return true;
+                } else if (id == R.id.nav_home) {
+                    navController.navigate(R.id.nav_gallery);
+                    drawer.closeDrawers();
+                    return true;
+                }
+                return false;
+            }
+        });
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
