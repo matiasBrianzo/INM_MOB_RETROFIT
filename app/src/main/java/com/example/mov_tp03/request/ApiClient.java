@@ -13,7 +13,7 @@ import retrofit2.http.POST;
 
 public class ApiClient {
     private static final String PATH = "https://inmobiliariaulp-amb5hwfqaraweyga.canadacentral-01.azurewebsites.net/";
-
+    private static ApiClient api = null;
     public static EndPointInmobiliaria getEndPointInmobiliaria() {
         Gson gson = new GsonBuilder().setLenient().create();
 
@@ -23,7 +23,13 @@ public class ApiClient {
                 .build();
 
         return retrofit.create(EndPointInmobiliaria.class);
+    }
 
+    public static ApiClient getApi() {
+        if (api == null) {
+            api = new ApiClient();
+        }
+        return api;
 
     }
 

@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                     navController.navigate(R.id.nav_home);
                     drawer.closeDrawers();
                     return true;
-                } else if (id == R.id.nav_home) {
+                } else if (id == R.id.nav_gallery) {
                     navController.navigate(R.id.nav_gallery);
                     drawer.closeDrawers();
                     return true;
