@@ -35,8 +35,8 @@ public class LoginActivityViewModel extends AndroidViewModel {
         }
         pUsuario="luisprofessor@gmail.com";
         pClave="DEEKQW";
-        ApiClient.EndPointInmobiliaria end = ApiClient.getEndPointInmobiliaria();
-        Call<String> call = end.loginForm(pUsuario,pClave);
+        ApiClient.EndPointInmobiliaria api = ApiClient.getEndPointInmobiliaria();
+        Call<String> call = api.loginForm(pUsuario,pClave);
 
         call.enqueue(new Callback<String>() {
             @Override
@@ -44,12 +44,12 @@ public class LoginActivityViewModel extends AndroidViewModel {
                 Log.d("response", response.body() + response.toString());
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
-                        String token = "Bearer " + response.body();
-                        Log.d("TOKEN", token); // Mostrar el token en el log
-                        SharedPreferences sp = context.getSharedPreferences("token.xml", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sp.edit();
-                        editor.putString("token", token);
-                        editor.commit();
+
+                        String token = response.body();
+                        Log.d("TOKEN", "Bearer " +token); // Mostrar el token en el log
+
+                       //Guardo Token
+                        ApiClient.setToken(context,token);
 
                         Intent intent = new Intent(context, MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

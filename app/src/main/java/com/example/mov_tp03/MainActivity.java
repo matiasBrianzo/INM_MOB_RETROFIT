@@ -10,7 +10,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home,R.id.nav_perfil, R.id.nav_gallery, R.id.nav_slideshow)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -64,11 +63,17 @@ public class MainActivity extends AppCompatActivity {
                     navController.navigate(R.id.nav_home);
                     drawer.closeDrawers();
                     return true;
-                } else if (id == R.id.nav_gallery) {
+                } else if (id == R.id.nav_perfil) {
+                    navController.navigate(R.id.nav_perfil);
+                    drawer.closeDrawers();
+                    return true;
+                }
+                 else if (id == R.id.nav_gallery) {
                     navController.navigate(R.id.nav_gallery);
                     drawer.closeDrawers();
                     return true;
                 }
+
                 return false;
             }
         });

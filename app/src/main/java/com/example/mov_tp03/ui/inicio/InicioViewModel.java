@@ -56,7 +56,7 @@ public class InicioViewModel extends AndroidViewModel {
     private void actualizarMarcadores(Location location) {
         List<MarkerOptions> listaMarcadores = new ArrayList<>();
 
-        LatLng SANLUIS = new LatLng(-33.280576, -66.332582);
+        LatLng SANLUIS = new LatLng(-33.2914, -66.32467);
         listaMarcadores.add(new MarkerOptions().position(SANLUIS).title("inmobiliaria"));
 
 

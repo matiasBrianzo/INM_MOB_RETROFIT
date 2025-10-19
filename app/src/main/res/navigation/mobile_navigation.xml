@@ -27,5 +27,10 @@
         android:name="com.example.mov_tp03.ui.login.LoginActivity"
         android:label="activity_login"
         tools:layout="@layout/activity_login" />
+    <fragment
+        android:id="@+id/nav_perfil"
+        android:name="com.example.mov_tp03.ui.perfil.PerfilFragment"
+        android:label="fragment_perfil"
+        tools:layout="@layout/fragment_perfil" />
 
 </navigation>
