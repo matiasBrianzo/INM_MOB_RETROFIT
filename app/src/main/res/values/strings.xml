@@ -23,4 +23,5 @@
     <string name="login_failed">"Login failed"</string>
     <string name="Login" />
     <string name="Perfil">Perfil</string>
+    <string name="Inmuebles">Inmuebles</string>
 </resources>

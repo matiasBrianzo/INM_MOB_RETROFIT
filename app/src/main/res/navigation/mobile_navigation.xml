@@ -12,12 +12,6 @@
         tools:layout="@layout/fragment_cargar" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.mov_tp03.ui.inmuebles.ListarFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_listar" />
-
-    <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.mov_tp03.ui.salir.SlideshowFragment"
         android:label="@string/menu_slideshow"
@@ -32,5 +26,10 @@
         android:name="com.example.mov_tp03.ui.perfil.PerfilFragment"
         android:label="fragment_perfil"
         tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/nav_inmuebles"
+        android:name="com.example.mov_tp03.ui.inmuebles.InmueblesFragment"
+        android:label="fragment_inmuebles"
+        tools:layout="@layout/fragment_inmuebles" />
 
 </navigation>
