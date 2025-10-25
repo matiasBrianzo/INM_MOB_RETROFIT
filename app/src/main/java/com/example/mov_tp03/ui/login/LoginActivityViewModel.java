@@ -6,7 +6,6 @@ import androidx.lifecycle.AndroidViewModel;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -35,7 +34,7 @@ public class LoginActivityViewModel extends AndroidViewModel {
         }
         pUsuario="luisprofessor@gmail.com";
         pClave="DEEKQW";
-        ApiClient.EndPointInmobiliaria api = ApiClient.getEndPointInmobiliaria();
+        ApiClient.EndPoint api = ApiClient.getSrv();
         Call<String> call = api.loginForm(pUsuario,pClave);
 
         call.enqueue(new Callback<String>() {

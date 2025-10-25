@@ -3,10 +3,13 @@ package com.example.mov_tp03.request;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.mov_tp03.Modelo.Inmueble;
 import com.example.mov_tp03.Modelo.Propietario;
-import com.example.mov_tp03.Modelo.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -22,7 +25,7 @@ import retrofit2.http.PUT;
 public class ApiClient {
     private static final String PATH = "https://inmobiliariaulp-amb5hwfqaraweyga.canadacentral-01.azurewebsites.net/";
     private static ApiClient api = null;
-    public static EndPointInmobiliaria getEndPointInmobiliaria() {
+    public static EndPoint getSrv() {
         Gson gson = new GsonBuilder().setLenient().create();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -30,15 +33,13 @@ public class ApiClient {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        return retrofit.create(EndPointInmobiliaria.class);
+        return retrofit.create(EndPoint.class);
     }
-
     public static ApiClient getApi() {
         if (api == null) {
             api = new ApiClient();
         }
         return api;
-
     }
     public static void setToken(Context context, String token){
 // Guardar el token en SharedPreferences
@@ -52,7 +53,7 @@ public class ApiClient {
         return sp.getString("token", null);
     }
 
-    public interface EndPointInmobiliaria {
+    public interface EndPoint {
 
         //login propietario
         @FormUrlEncoded
@@ -65,5 +66,11 @@ public class ApiClient {
         @PUT("api/Propietarios/actualizar")
         Call<Propietario> actualizarProp(@Header("Authorization") String token, @Body Propietario p);
 
+        @GET("api/Inmuebles")
+        Call<List<Inmueble>> getInmuebles(@Header("Authorization") String token);
+
+
+        @PUT("api/Inmuebles/actualizar")
+        Call<Inmueble> actualizarInmueble(@Header("Authorization") String token, @Body Inmueble inmueble);
     }
 }

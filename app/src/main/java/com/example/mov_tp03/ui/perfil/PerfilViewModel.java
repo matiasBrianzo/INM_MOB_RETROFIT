@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.mov_tp03.Modelo.Propietario;
 import com.example.mov_tp03.request.ApiClient;
@@ -53,7 +52,7 @@ public class PerfilViewModel extends AndroidViewModel {
             actualizado.setEmail(email);
 
             String token = ApiClient.getToken(context);
-            ApiClient.EndPointInmobiliaria api = ApiClient.getEndPointInmobiliaria();
+            ApiClient.EndPoint api = ApiClient.getSrv();
             Call<Propietario> call = api.actualizarProp(token, actualizado);
 
             call.enqueue(new Callback<Propietario>() {
@@ -79,7 +78,7 @@ public class PerfilViewModel extends AndroidViewModel {
     public void obtenerPerfil(){
 
         String token = ApiClient.getToken(context);
-        ApiClient.EndPointInmobiliaria api = ApiClient.getEndPointInmobiliaria();
+        ApiClient.EndPoint api = ApiClient.getSrv();
         Call<Propietario> call=api.getPropietario(token);
 
         call.enqueue(new Callback<Propietario>() {
