@@ -78,7 +78,9 @@ public class ApiClient {
         Call<Inmueble> actualizarInmueble(@Header("Authorization") String token, @Body Inmueble inmueble);
 
         @Multipart
-        @PUT("api/Inmuebles/cargar")
-        Call<Inmueble> cargarInmueble(@Header("Authorization") String token, @Part MultipartBody.Part imagen, @Part("inmueble")RequestBody inmuebleBody);
+        @POST("api/Inmuebles/cargar")
+        Call<Inmueble> CargarInmueble(@Header("Authorization") String token,
+                                      @Part MultipartBody.Part imagen,
+                                      @Part("inmueble") RequestBody inmuebleBody);
     }
 }

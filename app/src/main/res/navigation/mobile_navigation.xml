@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_nav_inmuebles_to_detalleInmuebleFragment"
             app:destination="@id/nav_detalleInmuebleFragment" />
+        <action
+            android:id="@+id/action_nav_inmuebles_to_nav_crearInmuebleFragment"
+            app:destination="@id/nav_crearInmuebleFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_detalleInmuebleFragment"
@@ -42,6 +45,15 @@
         tools:layout="@layout/fragment_detalle_inmueble" >
         <action
             android:id="@+id/action_detalleInmuebleFragment_to_nav_inmuebles"
+            app:destination="@id/nav_inmuebles" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_crearInmuebleFragment"
+        android:name="com.example.mov_tp03.ui.inmuebles.CrearInmuebleFragment"
+        android:label="fragment_crear_inmueble"
+        tools:layout="@layout/fragment_crear_inmueble" >
+        <action
+            android:id="@+id/action_nav_crearInmuebleFragment_to_nav_inmuebles"
             app:destination="@id/nav_inmuebles" />
     </fragment>
 

@@ -24,8 +24,6 @@ public class InmueblesAdapter extends RecyclerView.Adapter<InmueblesAdapter.View
     private List<Inmueble> listaInmuebles;
     private Context context;
     private LayoutInflater inflater;
-    private static final String PATH = "https://inmobiliariaulp-amb5hwfqaraweyga.canadacentral-01.azurewebsites.net/";
-
 
     public InmueblesAdapter(List<Inmueble> listaInmuebles, Context context, LayoutInflater inflater) {
         this.listaInmuebles = listaInmuebles;
@@ -46,7 +44,7 @@ public class InmueblesAdapter extends RecyclerView.Adapter<InmueblesAdapter.View
         holder.direccion.setText(inmActual.getDireccion());
         holder.precio.setText(inmActual.getValor()+"");
         Glide.with(context)
-                .load(PATH + inmActual.getImagen())
+                .load(inmActual.getPathImagen())
                 .placeholder(null)
                 .error("null")
                 .into(holder.portada);

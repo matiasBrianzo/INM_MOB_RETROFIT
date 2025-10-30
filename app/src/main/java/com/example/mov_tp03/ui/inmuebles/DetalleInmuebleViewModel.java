@@ -2,16 +2,17 @@ package com.example.mov_tp03.ui.inmuebles;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
+import com.bumptech.glide.Glide;
 import com.example.mov_tp03.Modelo.Inmueble;
+import com.example.mov_tp03.databinding.FragmentDetalleInmuebleBinding;
 import com.example.mov_tp03.request.ApiClient;
 
 import retrofit2.Call;
@@ -22,6 +23,8 @@ public class DetalleInmuebleViewModel extends AndroidViewModel {
 
     private Context context;
     private MutableLiveData<Inmueble> dataInmuebleMutable;
+    private static final String PATH = "https://inmobiliariaulp-amb5hwfqaraweyga.canadacentral-01.azurewebsites.net/";
+
     public DetalleInmuebleViewModel(@NonNull Application application) {
         super(application);
         context = application.getApplicationContext();
@@ -60,4 +63,5 @@ public class DetalleInmuebleViewModel extends AndroidViewModel {
             }
         });
     }
+
 }

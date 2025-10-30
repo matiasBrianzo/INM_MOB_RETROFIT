@@ -3,6 +3,8 @@ package com.example.mov_tp03.Modelo;
 import java.io.Serializable;
 
 public class Inmueble implements Serializable {
+    private static final String PATH = "https://inmobiliariaulp-amb5hwfqaraweyga.canadacentral-01.azurewebsites.net/";
+
     private int idInmueble;
     private String direccion;
     private String uso;
@@ -103,6 +105,9 @@ public class Inmueble implements Serializable {
 
     public String getImagen() {
         return imagen;
+    }
+    public String getPathImagen() {
+        return PATH+ getImagen();
     }
 
     public void setImagen(String imagen) {

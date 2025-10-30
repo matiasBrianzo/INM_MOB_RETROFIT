@@ -40,18 +40,21 @@ public class CrearInmuebleFragment extends Fragment {
         binding = FragmentCrearInmuebleBinding.inflate(inflater, container, false);
 
         mViewModel = new ViewModelProvider(this).get(CrearInmuebleViewModel.class);
+        isEnable(false);
         // TODO: Use the ViewModel
         abrirGaleria();
         binding.btnSeleccionarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 arl.launch(intent);
+                isEnable(true);
             }
         });
 
         binding.btnGuardarInmueble.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 cargarInmueble();
             }
         });
@@ -66,17 +69,18 @@ public class CrearInmuebleFragment extends Fragment {
     }
 
     private void cargarInmueble(){
-        String direccion=binding.etDireccion.getText().toString();
-        String uso=binding.etUso.getText().toString();
-        String tipo=binding.etTipo.getText().toString();
-        double latitud=0;
-        double longitud=0;
-        String precio=binding.etPrecio.getText().toString();
-        String ambientes= binding.etAmbientes.getText().toString();
-        boolean disponible=binding.cbDisponible.isChecked();
-        String superficie=binding.etSuperficie.getText().toString();
-        mViewModel.guardarInmueble(direccion, uso, tipo, precio, ambientes, superficie, disponible);
+        mViewModel.RunSave(
+                binding.etDireccion.getText().toString(),
+                binding.etUso.getText().toString(),
+                binding.etTipo.getText().toString(),
+                binding.etLatitud.getText().toString(),
+                binding.etLongitud.getText().toString(),
+                binding.etPrecio.getText().toString(),
+                binding.etAmbientes.getText().toString(),
+                binding.cbDisponible.isChecked(),
+                binding.etSuperficie.getText().toString());
     }
+
     private void abrirGaleria() {
         intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         arl=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
@@ -85,5 +89,18 @@ public class CrearInmuebleFragment extends Fragment {
                 mViewModel.recibirFoto(result);
             }
         });
+    }
+    private void isEnable(boolean enable)
+    {
+        binding.etDireccion.setEnabled(enable);
+        binding.etUso.setEnabled(enable);
+        binding.etTipo.setEnabled(enable);
+        binding.etLatitud.setEnabled(enable);
+        binding.etLongitud.setEnabled(enable);
+        binding.etPrecio.setEnabled(enable);
+        binding.etAmbientes.setEnabled(enable);
+        binding.cbDisponible.setEnabled(enable);
+        binding.etSuperficie.setEnabled(enable);
+        binding.btnGuardarInmueble.setEnabled(enable);
     }
 }

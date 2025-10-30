@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -37,11 +38,13 @@ import retrofit2.Response;
 public class CrearInmuebleViewModel extends AndroidViewModel {
     private MutableLiveData<Uri> uriMutableLiveData;
     private MutableLiveData<Inmueble> mInmueble;
-    private static Inmueble inmueblelleno;
+    private static Inmueble inmueble;
+    private final Context context;
 
     public CrearInmuebleViewModel(@NonNull Application application) {
         super(application);
-        inmueblelleno = new Inmueble();
+        inmueble = new Inmueble();
+        context = application.getApplicationContext();
     }
 
     // TODO: Implement the ViewModel
@@ -69,56 +72,6 @@ public class CrearInmuebleViewModel extends AndroidViewModel {
         }
     }
 
-    public void guardarInmueble(String direccion, String uso, String tipo, String precio, String ambientes, String superficie, boolean disponible) {
-        try {
-            int amb = Integer.parseInt(ambientes);
-            int superf = Integer.parseInt(superficie);
-            double prec = Double.parseDouble(precio);
-            Inmueble inmueble = new Inmueble();
-            inmueble.setDireccion(direccion);
-            inmueble.setUso(uso);
-            inmueble.setTipo(tipo);
-            inmueble.setValor(prec);
-            inmueble.setSuperficie(superf);
-            inmueble.setAmbientes(amb);
-            inmueble.setDisponible(disponible);
-            // convertir la imagen en bits
-            byte[] imagen=transformarImagen();
-            if (imagen.length == 0){
-                Toast.makeText(getApplication(), "Ustes debe ingresar una imagen", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            String inmuebleJson = new Gson().toJson(inmueble);
-            RequestBody inmuebleBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), inmuebleJson);
-            RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), imagen);
-            MultipartBody.Part imagenPart = MultipartBody.Part.createFormData("imagen", "imagen.jpg", requestFile);
-            ApiClient.EndPoint api = ApiClient.getSrv();
-            String token=ApiClient.getToken(getApplication());
-            Call<Inmueble> llamada=api.cargarInmueble(token, imagenPart, inmuebleBody);
-            llamada.enqueue(new Callback<Inmueble>() {
-                @Override
-                public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
-                    if (response.isSuccessful()){
-                        Toast.makeText(getApplication(), "Inmueble guardado correctamente", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Inmueble> call, Throwable throwable) {
-                    Toast.makeText(getApplication(), "Error al guardar inmueble", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-
-
-        } catch (NumberFormatException e) {
-            Toast.makeText(getApplication(), "Error, debe ingresar un numero", Toast.LENGTH_SHORT).show();
-
-        }
-
-
-    }
-
     private byte[] transformarImagen() {
         try {
             Uri uri = uriMutableLiveData.getValue();  //lo puedo usar porque estoy en viewmodel
@@ -135,5 +88,95 @@ public class CrearInmuebleViewModel extends AndroidViewModel {
 
     }
 
+    public void RunSave(String pDireccion, String pUso, String pTipo, String pLatitud, String pLongitud, String pPrecio, String pAmbientes, boolean pisponible, String pSuperficie) {
 
+        boolean valido=validoCampos( pDireccion,  pUso,  pTipo,  pLatitud,  pLongitud,  pPrecio,  pAmbientes,  pisponible,  pSuperficie);
+        if (!valido) {
+            Toast.makeText(getApplication(), "Complete todos los campos correctamente", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            guardarInmueble( pDireccion,  pUso,  pTipo,  pLatitud,  pLongitud,  pPrecio,  pAmbientes,  pisponible,  pSuperficie);
+        }
+    }
+
+    private void guardarInmueble(String pDireccion, String pUso, String pTipo, String pLatitud, String pLongitud, String pPrecio, String pAmbientes, boolean pDisponible, String pSuperficie) {
+
+        try {
+            int amb = Integer.parseInt(pAmbientes);
+            int superf = Integer.parseInt(pSuperficie);
+            double prec = Double.parseDouble(pPrecio);
+            inmueble = new Inmueble();
+            inmueble.setDireccion(pDireccion);
+            inmueble.setUso(pUso);
+            inmueble.setTipo(pTipo);
+            inmueble.setValor(prec);
+            inmueble.setSuperficie(superf);
+            inmueble.setAmbientes(amb);
+            inmueble.setDisponible(pDisponible);
+            // convertir la imagen en bits
+            byte[] imagen=transformarImagen();
+            if (imagen.length == 0){
+                Toast.makeText(getApplication(), "Ustes debe ingresar una imagen", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String inmuebleJson = new Gson().toJson(inmueble);
+            RequestBody inmuebleBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), inmuebleJson);
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), imagen);
+            MultipartBody.Part imagenPart = MultipartBody.Part.createFormData("imagen", "imagen.jpg", requestFile);
+
+            ApiClient.EndPoint api = ApiClient.getSrv();
+            String token=ApiClient.getToken(context);
+            Call<Inmueble> llamada=api.CargarInmueble(token, imagenPart, inmuebleBody);
+            llamada.enqueue(new Callback<Inmueble>() {
+                @Override
+                public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
+                    if (response.isSuccessful()){
+                        Toast.makeText(context, "Inmueble guardado correctamente", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        if (response.code() == 404) {
+                            Toast.makeText(context, "Datos incorrectos", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Error en la respuesta: " + response.code(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+                @Override
+                public void onFailure(Call<Inmueble> call, Throwable throwable) {
+                    Toast.makeText(getApplication(), "Error al guardar inmueble", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (NumberFormatException e) {
+            Toast.makeText(getApplication(), "Error,", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean validoCampos(String pDireccion, String pUso, String pTipo, String pLatitud, String pLongitud, String pPrecio, String pAmbientes, boolean pisponible, String pSuperficie) {
+
+        try{
+            int amb = Integer.parseInt(pAmbientes);
+            int superf = Integer.parseInt(pSuperficie);
+            double prec = Double.parseDouble(pPrecio);
+            double Latitud = Double.parseDouble(pLatitud);
+            double Longitud = Double.parseDouble(pLongitud);
+            boolean valido = true;
+
+            if (pDireccion.isEmpty()) valido = false;
+            if (pUso.isEmpty()) valido = false;
+            if (pTipo.isEmpty()) valido = false;
+            if (amb <= 0) valido = false;
+            if (superf <= 0) valido = false;
+            if (prec <= 0) valido = false;
+            if (Latitud <= 0) valido = false;
+            if (Longitud <= 0) valido = false;
+            if (!valido) {
+                Toast.makeText(getApplication(), "Complete todos los campos correctamente", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        } catch (Exception e) {
+            Toast.makeText(getApplication(), "Complete todos los campos correctamente", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+      return true;
+    }
 }
