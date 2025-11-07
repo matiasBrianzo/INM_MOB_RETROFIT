@@ -3,7 +3,9 @@ package com.example.mov_tp03.request;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.mov_tp03.Modelo.Contrato;
 import com.example.mov_tp03.Modelo.Inmueble;
+import com.example.mov_tp03.Modelo.Inquilino;
 import com.example.mov_tp03.Modelo.Propietario;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,6 +27,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public class ApiClient {
     private static final String PATH = "https://inmobiliariaulp-amb5hwfqaraweyga.canadacentral-01.azurewebsites.net/";
@@ -82,5 +85,13 @@ public class ApiClient {
         Call<Inmueble> CargarInmueble(@Header("Authorization") String token,
                                       @Part MultipartBody.Part imagen,
                                       @Part("inmueble") RequestBody inmuebleBody);
+
+        @GET("api/Inmuebles/GetContratoVigente")
+        Call<List<Inmueble>> getContratoVigente(@Header("Authorization") String token);
+
+
+        @GET("api/contratos/inmueble/{id}")
+        Call<Contrato> getContratoXInmueble(@Header("Authorization") String token, @Path("id") String id);
+
     }
 }

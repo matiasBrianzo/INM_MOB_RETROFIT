@@ -24,4 +24,5 @@
     <string name="Login" />
     <string name="Perfil">Perfil</string>
     <string name="Inmuebles">Inmuebles</string>
+    <string name="Inquilinos">Inquilinos</string>
 </resources>

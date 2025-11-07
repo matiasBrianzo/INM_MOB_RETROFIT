@@ -1,9 +1,9 @@
 package com.example.mov_tp03.Modelo;
-
+import com.example.mov_tp03.MainActivity;
+import com.example.mov_tp03.MainActivity.*;
 import java.io.Serializable;
 
 public class Inmueble implements Serializable {
-    private static final String PATH = "https://inmobiliariaulp-amb5hwfqaraweyga.canadacentral-01.azurewebsites.net/";
 
     private int idInmueble;
     private String direccion;
@@ -107,7 +107,7 @@ public class Inmueble implements Serializable {
         return imagen;
     }
     public String getPathImagen() {
-        return PATH+ getImagen();
+        return MainActivity.PATH + getImagen();
     }
 
     public void setImagen(String imagen) {
