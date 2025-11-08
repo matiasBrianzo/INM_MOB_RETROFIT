@@ -16,30 +16,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mov_tp03.Modelo.Inmueble;
-import com.example.mov_tp03.Modelo.Inquilino;
 import com.example.mov_tp03.R;
-import com.example.mov_tp03.ui.inmuebles.InmueblesAdapter;
 
 import java.util.List;
 
-  public class InquilinosAdapter extends RecyclerView.Adapter<InquilinosAdapter.ViewHolderInquilino> {
+  public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolderInquilino> {
 
     private Context context;
     private List<Inmueble> alquilados;
     private LayoutInflater inflater;
 
-    public InquilinosAdapter(Context context, List<Inmueble> pInmueble, LayoutInflater inflater) {
+    public MainAdapter(Context context, List<Inmueble> pInmueble, LayoutInflater inflater) {
         this.context = context;
         this.alquilados = pInmueble;
         this.inflater = inflater;
     }
     @NonNull
     @Override
-    public InquilinosAdapter.ViewHolderInquilino onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MainAdapter.ViewHolderInquilino onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View itemView=inflater.inflate(R.layout.item_inquilino,parent,false);
 
-        return new InquilinosAdapter.ViewHolderInquilino(itemView);
+        return new MainAdapter.ViewHolderInquilino(itemView);
     }
 
       @Override
@@ -61,21 +59,32 @@ import java.util.List;
 
         private TextView direccion;
         private ImageView portada;
-        Button btnVerInquilino;
+        Button btnVerInquilino,btnVerContrato;
         public ViewHolderInquilino(@NonNull View itemView) {
             super(itemView);
             direccion = itemView.findViewById(R.id.tvDireccion);
             portada= itemView.findViewById(R.id.imgPortada);
             btnVerInquilino = itemView.findViewById(R.id.btnVerInquilino);
+            btnVerContrato = itemView.findViewById(R.id.btnVerContrato);
+            btnVerContrato.setOnClickListener(this);
             btnVerInquilino.setOnClickListener(this);
         }
+
         @Override
         public void onClick(View v) {
+
             NavController navController = Navigation.findNavController(v);
             Inmueble inmueble = alquilados.get(getAdapterPosition());
             Bundle bundle = new Bundle();
             bundle.putSerializable("inmueble", inmueble);
-            navController.navigate(R.id.nav_detalleInquilinoFragment, bundle);
+            if (v.getId() == btnVerInquilino.getId()) {
+                // Lógica para btnVerInquilino
+                navController.navigate(R.id.nav_detalleInquilinoFragment, bundle);
+            } else if (v.getId() == btnVerContrato.getId()) {
+                // Lógica para btnVerContrato
+                navController.navigate(R.id.nav_detalleContratoFragment, bundle); // ¡Cambia R.id.nav_detalleContratoFragment por el ID real de tu destino!
+            }
         }
+
     }
 }

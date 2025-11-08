@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.example.mov_tp03.Modelo.Contrato;
 import com.example.mov_tp03.Modelo.Inmueble;
 import com.example.mov_tp03.Modelo.Inquilino;
+import com.example.mov_tp03.Modelo.Pago;
 import com.example.mov_tp03.Modelo.Propietario;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -92,6 +93,10 @@ public class ApiClient {
 
         @GET("api/contratos/inmueble/{id}")
         Call<Contrato> getContratoXInmueble(@Header("Authorization") String token, @Path("id") String id);
+
+        @GET("api/pagos/contrato/{id}")
+        Call<ArrayList<Pago>> getPagoXContrato(@Header("Authorization") String token, @Path("id") String id);
+
 
     }
 }

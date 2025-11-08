@@ -39,7 +39,6 @@ public class DetalleInquilinoViewModel extends AndroidViewModel {
     public void obtenerInquilino(Inmueble inmueble){
         try {
 
-
         String token = ApiClient.getToken(context);
         ApiClient.EndPoint end = ApiClient.getSrv();
         String id= String.valueOf(inmueble.getIdInmueble());

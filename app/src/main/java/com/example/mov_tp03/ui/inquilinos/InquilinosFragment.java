@@ -15,9 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mov_tp03.Modelo.Inmueble;
-import com.example.mov_tp03.Modelo.Inquilino;
 import com.example.mov_tp03.databinding.FragmentInquilinosBinding;
-import com.example.mov_tp03.ui.inmuebles.InmueblesAdapter;
 
 import java.util.List;
 
@@ -36,7 +34,7 @@ public class InquilinosFragment extends Fragment {
         vm.getListaInquilino().observe(getViewLifecycleOwner(), new Observer<List<Inmueble>>() {
             @Override
             public void onChanged(List<Inmueble> inmuebles) {
-                InquilinosAdapter adapter = new InquilinosAdapter(getContext(),inmuebles,getLayoutInflater());
+                MainAdapter adapter = new MainAdapter(getContext(),inmuebles,getLayoutInflater());
                 GridLayoutManager glm=new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
                 binding.listaInquilino.setLayoutManager(glm);
                 binding.listaInquilino.setAdapter(adapter);
@@ -46,9 +44,5 @@ public class InquilinosFragment extends Fragment {
 
         vm.obtenerListaInmuebles();
         return root;
-
     }
-
-
-
 }
