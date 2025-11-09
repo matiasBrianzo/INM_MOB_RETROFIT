@@ -57,26 +57,9 @@ public class InicioFragment extends Fragment implements OnMapReadyCallback {
     @Override
 
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        mv.onMapReady(googleMap);
+        
 
-        mv.getMarcadores().observe(getViewLifecycleOwner(), markerOptionsList -> {
-            mMap.clear(); // Limpiamos todos los marcadores anteriores del mapa
-
-            for (MarkerOptions markerOptions : markerOptionsList) {
-                mMap.addMarker(markerOptions);
-            }
-        });
-
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
-
-            mv.getUbicacionActual().observe(getViewLifecycleOwner(), location -> {
-                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
-            });
-
-            mv.actualizarUbicacion();
-        }
     }
 
 }
