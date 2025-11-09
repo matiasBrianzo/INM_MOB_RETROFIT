@@ -58,7 +58,6 @@ public class InicioFragment extends Fragment implements OnMapReadyCallback {
 
     public void onMapReady(GoogleMap googleMap) {
         mv.onMapReady(googleMap);
-        
 
     }
 

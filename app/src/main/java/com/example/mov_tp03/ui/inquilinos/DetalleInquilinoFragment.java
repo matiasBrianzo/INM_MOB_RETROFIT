@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.example.mov_tp03.Modelo.Contrato;
 import com.example.mov_tp03.Modelo.Inmueble;
 import com.example.mov_tp03.Modelo.Inquilino;
+import com.example.mov_tp03.Modelo.Propietario;
 import com.example.mov_tp03.R;
 import com.example.mov_tp03.databinding.FragmentDetalleInquilinoBinding;
 
@@ -48,8 +49,16 @@ public class DetalleInquilinoFragment extends Fragment {
                 binding.tvTelefono.setText(contrato.getInquilino().getTelefono());
             }
         });
-        mv.obtenerInquilino(inmueble);
+        mv.getPropietarioGaranteMutable().observe(getViewLifecycleOwner(), new Observer<Propietario>() {
+            @Override
+            public void onChanged(Propietario propietario) {
+                binding.tvTelefonoGarante.setText(propietario.getTelefono());
+                binding.tvGarante.setText(propietario.getNombre());
 
+            }
+        });
+        mv.obtenerInquilino(inmueble);
+        mv.obtenerPropietarioGarante();
         return root;
     }
 

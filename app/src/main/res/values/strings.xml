@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">mov_TP03</string>
+    <string name="app_name">Inmobiliaria</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Inmobiliaria</string>
+    <string name="nav_header_subtitle">Inmobiliaria.studio@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -25,4 +25,5 @@
     <string name="Perfil">Perfil</string>
     <string name="Inmuebles">Inmuebles</string>
     <string name="Inquilinos">Inquilinos</string>
+    <string name="InquilinosContratos">Inquilinos y Contratos</string>
 </resources>

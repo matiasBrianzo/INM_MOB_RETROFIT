@@ -83,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
                     drawer.closeDrawers();
                     return true;
                 }
+                else if (id == R.id.nav_slideshow) {
+                    navController.navigate(R.id.nav_slideshow);
+                    drawer.closeDrawers();
+                    return true;
+                }
                 return false;
             }
         });

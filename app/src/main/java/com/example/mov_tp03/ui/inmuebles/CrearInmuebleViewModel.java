@@ -19,6 +19,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.mov_tp03.MainActivity;
 import com.example.mov_tp03.Modelo.Inmueble;
 import com.example.mov_tp03.request.ApiClient;
 import com.google.gson.Gson;
@@ -132,6 +133,11 @@ public class CrearInmuebleViewModel extends AndroidViewModel {
                 public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
                     if (response.isSuccessful()){
                         Toast.makeText(context, "Inmueble guardado correctamente", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(context, InmueblesFragment.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        context.startActivity(intent);
+
                     }
                     else {
                         if (response.code() == 404) {

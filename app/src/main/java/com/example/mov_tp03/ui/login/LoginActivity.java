@@ -23,18 +23,17 @@ public class LoginActivity extends AppCompatActivity {
     private SensorManager sensorManager;
     private Sensor accelerometer;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         mv = new ViewModelProvider(this).get(LoginActivityViewModel.class);
-
 
         binding.login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,8 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-
-
 
     @Override
     protected void onResume() {
@@ -60,17 +57,7 @@ public class LoginActivity extends AppCompatActivity {
     private SensorEventListener sensorEventListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
-            float x = event.values[0];
-            float y = event.values[1];
-            float z = event.values[2];
-
-            float aceleracion = (float) Math.sqrt(x * x + y * y + z * z);
-
-            if (aceleracion > 40) {
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:2664031614"));
-                startActivity(intent);
-            }
+            mv.SensorChanged(event);
         }
 
         @Override

@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.mov_tp03.Modelo.Contrato;
 import com.example.mov_tp03.Modelo.Inmueble;
 import com.example.mov_tp03.Modelo.Inquilino;
+import com.example.mov_tp03.Modelo.Propietario;
 import com.example.mov_tp03.request.ApiClient;
 
 import retrofit2.Call;
@@ -22,7 +23,7 @@ import retrofit2.Response;
 public class DetalleInquilinoViewModel extends AndroidViewModel {
 
     private MutableLiveData<Contrato> inquilinoMutable;
-
+    private MutableLiveData<Propietario> propietarioGaranteMutable;
     private Context context;
     public DetalleInquilinoViewModel(@NonNull Application application) {
         super(application);
@@ -34,6 +35,12 @@ public class DetalleInquilinoViewModel extends AndroidViewModel {
             inquilinoMutable = new MutableLiveData<>();
         }
         return inquilinoMutable;
+    }
+    public LiveData<Propietario> getPropietarioGaranteMutable() {
+        if(propietarioGaranteMutable == null){
+            propietarioGaranteMutable = new MutableLiveData<>();
+        }
+        return propietarioGaranteMutable;
     }
 
     public void obtenerInquilino(Inmueble inmueble){
@@ -58,9 +65,32 @@ public class DetalleInquilinoViewModel extends AndroidViewModel {
                 Toast.makeText(context, "Error al obtener inquilino", Toast.LENGTH_SHORT).show();
             }
         });
-    } catch (Exception e) {
-            Toast.makeText(getApplication(), "Error,", Toast.LENGTH_SHORT).show();
-    }
+        } catch (Exception e) {
+                Toast.makeText(getApplication(), "Error,", Toast.LENGTH_SHORT).show();
+        }
 
 }
+    public void obtenerPropietarioGarante() {
+        String token = ApiClient.getToken(context);
+        ApiClient.EndPoint api = ApiClient.getSrv();
+        Call<Propietario> call=api.getPropietario(token);
+
+        call.enqueue(new Callback<Propietario>() {
+            @Override
+            public void onResponse(Call<Propietario> call, Response<Propietario> response) {
+                if (response.isSuccessful()){
+                    propietarioGaranteMutable.postValue(response.body());
+                }else{
+                    Toast.makeText(context, "Error en la respuesta: " + response.toString(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Propietario> call, Throwable throwable) {
+                Toast.makeText(context,throwable.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
 }

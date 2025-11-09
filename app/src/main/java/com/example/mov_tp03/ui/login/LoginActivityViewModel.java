@@ -1,11 +1,15 @@
 package com.example.mov_tp03.ui.login;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.SensorEvent;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -69,5 +73,20 @@ public class LoginActivityViewModel extends AndroidViewModel {
                 Toast.makeText(context, "Error al llamar al servicio de login", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void SensorChanged(SensorEvent event) {
+        float x = event.values[0];
+        float y = event.values[1];
+        float z = event.values[2];
+
+        float aceleracion = (float) Math.sqrt(x * x + y * y + z * z);
+
+        if (aceleracion > 40) {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:2664031614"));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            context.startActivity(intent);
+        }
     }
 }

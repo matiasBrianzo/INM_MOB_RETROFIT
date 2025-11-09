@@ -78,7 +78,7 @@ public class InicioViewModel extends AndroidViewModel {
     }
 
 
-    // Método que el Fragment llamará cuando el mapa esté listo
+
     public void onMapReady(GoogleMap googleMap) {
         mapaListo.setValue(googleMap); // Notificamos a los observadores que el mapa está listo
 
